@@ -1,8 +1,11 @@
 package main
 
 import (
-	"flag"
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
 
 	"github.com/zacscodingclub/tic-tac-go/game"
 )
@@ -11,17 +14,28 @@ var (
 	numPlayers int
 )
 
-func init() {
-	flag.IntVar(&numPlayers, "players", 1, "Number of human players")
-	flag.IntVar(&numPlayers, "p", 1, "Number of human players")
-
-	flag.Parse()
-}
-
 func main() {
 	fmt.Println("Welcome to Tic Tac Go!")
-	fmt.Println("Number of Players", numPlayers)
-	g := game.NewGame()
+	n := 10
+	for n > 2 {
+		n = askNumberOfPlayers()
+	}
+
+	fmt.Printf("now starting with %v players\n", n)
+	g := game.NewGame(n)
 	g.Board.Display()
-	g.Play()
+	// g.Play()
+}
+
+func askNumberOfPlayers() int {
+	fmt.Println("How many people will be playing? 1 or 2?")
+	reader := bufio.NewReader(os.Stdin)
+	const delimiter = '\n'
+	input, err := reader.ReadString(delimiter)
+	input = strings.Replace(input, "\n", "", -1)
+	num, err := strconv.Atoi(input)
+	if err != nil {
+		panic(err)
+	}
+	return num
 }

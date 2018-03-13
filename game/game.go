@@ -17,10 +17,18 @@ var winningCombinations = [8][3]int{
 
 type Game struct {
 	Board   board.Board
-	Players []player
+	Players []string
 }
 
-func NewGame() *Game {
+func NewGame(n int) *Game {
 	b := board.NewBoard()
-	return &Game{Board: *b}
+	p := make([]string, 2)
+	if n == 1 {
+		p[0] = "human"
+		p[1] = "computer"
+	} else {
+		p[0] = "human"
+		p[1] = "human"
+	}
+	return &Game{Board: *b, Players: p}
 }
