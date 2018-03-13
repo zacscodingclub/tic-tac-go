@@ -22,6 +22,15 @@ func (b *Board) Display() {
 	gameLine(b.Cells[6], b.Cells[7], b.Cells[8])
 }
 
+func (b *Board) IsFull() bool {
+	for _, cell := range b.Cells {
+		if cell != "X" && cell != "O" {
+			return false
+		}
+	}
+	return true
+}
+
 func gameLine(pos1, pos2, pos3 string) {
 	fmt.Printf(" %v | %v | %v \n", pos1, pos2, pos3)
 }
