@@ -31,6 +31,19 @@ func (b *Board) IsFull() bool {
 	return true
 }
 
+func (b *Board) IsTaken(n int) bool {
+	return b.Cells[n] == "X" || b.Cells[n] == "O"
+}
+
+func (b *Board) IsValid(n int) bool {
+	l := n >= 0 && n <= 8
+	return l && !b.IsTaken(n)
+}
+
+func (b *Board) Move(n int, p string) {
+	b.Cells[n] = p
+}
+
 func gameLine(pos1, pos2, pos3 string) {
 	fmt.Printf(" %v | %v | %v \n", pos1, pos2, pos3)
 }
